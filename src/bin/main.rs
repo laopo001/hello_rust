@@ -10,13 +10,14 @@ use std::time::Duration;
 fn main() {
     let pool = ThreadPool::new(4);
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
-    for stream in listener.incoming() {
+    for stream in listener.incoming().take(2) {
         let stream = stream.unwrap();
         // handle_connection(stream);
         pool.execute(|| {
             handle_connection(stream);
         });
     }
+    println!("Shutting down.");
 }
 
 fn handle_connection(mut stream: TcpStream) {
