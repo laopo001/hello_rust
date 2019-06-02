@@ -2,5 +2,10 @@
 name = "hello_rust"
 version = "0.1.0"
 authors = ["laopo001 <353272497@qq.com>"]
+edition = "2018"
 
 [dependencies]
+futures-preview = { version = "0.3.0-alpha.16", features = ["io-compat"] }
+hyper = "0.12.25"
+tokio = "0.1.16"
+pin-utils = "0.1.0-alpha.4"
