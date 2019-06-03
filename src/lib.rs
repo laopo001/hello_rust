@@ -26,6 +26,9 @@ impl ThreadPool {
         let job = Box::new(f);
         self.sender.send(Message::NewJob(job)).unwrap();
     }
+    pub fn wait(){
+
+    }
 }
 trait FnBox {
     fn call_box(self: Box<Self>);
