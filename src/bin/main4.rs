@@ -2,8 +2,6 @@ use std::thread;
 use std::sync::{Arc, mpsc, Mutex};
 use std::thread::sleep;
 use hello_rust::test::ThreadPool;
-use std::sync::atomic::Ordering::AcqRel;
-
 
 fn main() {
 	let pool = ThreadPool::new(4);
@@ -18,7 +16,7 @@ fn main() {
 		let mut c_v = Arc::clone(&vec);
 
 		pool.execute(move || {
-			sleep(std::time::Duration::from_secs(2));
+			sleep(std::time::Duration::from_secs(1));
 			let mut m = c_v.lock().unwrap();
 			m[i] = 1;
 			sender.send(i.to_string());
