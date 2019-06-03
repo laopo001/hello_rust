@@ -7,8 +7,8 @@ use hello_rust::test::ThreadPool;
 fn main() {
 	let pool = ThreadPool::new(4);
 	let (s, receiver) = mpsc::channel();
-//	let s = Arc::new(Mutex::new(sender));
-	let sender = s.clone();
+	let s = Arc::new(Mutex::new(sender));
+//	let sender = s.clone();
 	pool.execute(move || {
 		sleep(std::time::Duration::from_secs(2));
 		sender.send("123".to_string());
