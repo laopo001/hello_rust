@@ -1,5 +1,5 @@
 extern crate hello_rust;
-use hello_rust::ThreadPool;
+use hello_rust::test::ThreadPool;
 use std::fs::File;
 use std::io::prelude::*;
 use std::net::TcpListener;

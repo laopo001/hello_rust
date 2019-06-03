@@ -1,6 +1,7 @@
 use std::thread;
 use std::sync::{Arc, mpsc, Mutex};
 use std::thread::sleep;
+//use hello_rust::ThreadPool;
 
 fn main() {
 	let (tx, rx) = mpsc::channel();
