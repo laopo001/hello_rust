@@ -62,11 +62,13 @@ impl Worker {
 			let message = receiver.lock().unwrap().recv().unwrap();
 			match message {
 				Message::NewJob(job) => {
+					#[cfg(feature = "test")]
 					println!("Worker {} got a job; executing.", id);
 					job.call_box();
 					sender.lock().unwrap().send(());
 				}
 				Message::Terminate => {
+					#[cfg(feature = "test")]
 					println!("Worker {} was told to terminate.", id);
 					break;
 				}
@@ -81,12 +83,14 @@ impl Worker {
 
 impl Drop for ThreadPool {
 	fn drop(&mut self) {
+		#[cfg(feature = "test")]
 		println!("Sending terminate message to all workers");
 		for _ in &mut self.workers {
 			self.sender.send(Message::Terminate).unwrap();
 		}
 
 		for worker in &mut self.workers {
+			#[cfg(feature = "test")]
 			println!("Shutting down worker {}", worker.id);
 			if let Some(thread) = worker.thread.take() {
 				thread.join().unwrap();

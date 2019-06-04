@@ -9,3 +9,7 @@ futures-preview = { version = "0.3.0-alpha.16", features = ["io-compat"] }
 hyper = "0.12.25"
 tokio = "0.1.16"
 pin-utils = "0.1.0-alpha.4"
+
+[features]
+default = []
+test = []
