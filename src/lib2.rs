@@ -28,7 +28,7 @@ impl ThreadPool {
 			F: FnOnce() + Send + 'static,
 	{
 		let job = Box::new(f);
-		self.sender.send(Message::NewJob(-)).unwrap();
+		self.sender.send(Message::NewJob(job)).unwrap();
 		*self.size.borrow_mut() += 1;
 	}
 	pub fn wait(&self) {
