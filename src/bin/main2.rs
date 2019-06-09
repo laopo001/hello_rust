@@ -17,8 +17,8 @@ fn main() {
 		let res = await!(client.get(url).compat())?;
 		println!("{}", res.status());
 
-		let body = res.into_body().compat();
-		pin_mut!(body);
+		let mut body = res.into_body().compat();
+//		pin_mut!(body);
 
 		let mut stdout = tokio::io::stdout().compat();
 		while let Some(Ok(chunk)) = await!(body.next()) {
