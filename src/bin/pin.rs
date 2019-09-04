@@ -1,14 +1,20 @@
 use std::pin::Pin;
 
-struct Person<'a> {
+struct Person {
     name: String,
-    this: Option<Pin<&'a Person<'a>>>,
+}
+
+struct Class {
+    Persons: [Person; 2],
+    curr: Person,
 }
 
 fn main() {
-    let mut a = Person {
-        name: "123".to_string(),
-        this: None,
+    let a = Person {
+        name: "a".to_string(),
+    };
+    let b = Person {
+        name: "b".to_string(),
     };
     println!("pin.");
 }
