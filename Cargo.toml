@@ -9,3 +9,6 @@ edition = "2018"
 [features]
 default = []
 test = []
+
+[package.metadata.commands]
+wasm-build = "cargo build --target=wasm32-unknown-unknown --bin=wasm"
