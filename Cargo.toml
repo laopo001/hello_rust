@@ -11,4 +11,4 @@ default = []
 test = []
 
 [package.metadata.commands]
-wasm-build = "cargo build --target=wasm32-unknown-unknown --bin=wasm"
+wasm-build = "cargo build --target=wasm32-unknown-unknown --bin=wasm && node index.js"
