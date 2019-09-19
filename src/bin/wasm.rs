@@ -33,6 +33,7 @@ fn abcdefg_test3() -> A {
     return a;
 }
 
+#[derive(Debug)]
 struct A {
     name: i32,
     age: i32,
@@ -42,5 +43,5 @@ fn main() {
     abcdefg();
     abcdefg_test2();
     let a = abcdefg_test3();
-    println!("==========================");
+    println!("============{:?}=============", a.name);
 }
