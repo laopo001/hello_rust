@@ -1,5 +1,4 @@
 *           text=auto
 *.txt       text
-*.rs        text eol=lf
-*.sh        text eol=lf
-*.jpg       -text
+*.rs        eol=lf
+*.sh        eol=lf
