@@ -37,6 +37,7 @@ fn main() {
             async_read_file("1.txt").await.unwrap();
         }
     });
+
     let time3 = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
         .unwrap()
