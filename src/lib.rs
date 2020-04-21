@@ -1,4 +1,4 @@
-#[warn(unused_imports)]
+#![allow(unused)]
 use std::sync::{mpsc, Arc, Mutex};
 
 trait FnBox {
@@ -11,7 +11,7 @@ impl<F: FnOnce()> FnBox for F {
     }
 }
 
-type Task = Box<FnBox + Send + 'static>;
+type Task = Box<dyn FnBox + Send + 'static>;
 
 enum Message {
     NewJob(Task),

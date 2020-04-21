@@ -1,3 +1,4 @@
+#![allow(unused)]
 //   (func $_ZN4wasm7abcdefg17he5303efcc2bc735bE (type $t0)
 //     (local $l0 i32) (local $l1 i32) (local $l2 i32) (local $l3 i32)
 //     get_global $g0 ;; 把 $g0 push进堆栈   [$g0]

@@ -1,3 +1,4 @@
+#![allow(unused)]
 struct A(i32);
 
 impl Drop for A {
