@@ -41,7 +41,7 @@ fn handle_connection(mut stream: TcpStream) {
     file.read_to_string(&mut contents).unwrap();
 
     let response = format!("{}{}", status_line, contents);
-
+    
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
     println!("Request: {}", String::from_utf8_lossy(&buffer[..]));
