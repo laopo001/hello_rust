@@ -7,7 +7,7 @@ struct A {
 }
 impl Update for A {
     fn update(&mut self) {
-        self.i = 1;
+        self.i += 1;
         dbg!(self);
     }
 }
@@ -17,7 +17,7 @@ struct B {
 }
 impl Update for B {
     fn update(&mut self) {
-        self.i = 2;
+        self.i += 2;
         dbg!(self);
     }
 }
@@ -35,4 +35,11 @@ fn main() {
     let mut arr: Vec<Box<dyn Update>> = vec![];
     arr.push(Box::new(a));
     arr.push(Box::new(b));
+    let mut arr2: Vec<&mut Box<dyn Update>> = vec![];
+    for i in arr.iter_mut() {
+        arr2.push(i);
+    }
+    for i in arr2 {
+        i.update();
+    }
 }
