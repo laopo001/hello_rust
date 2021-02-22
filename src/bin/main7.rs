@@ -1,13 +1,20 @@
 #![allow(unused)]
 use std::rc::Rc;
 use std::{
-    cell::{Cell, RefCell},
+    cell::{Cell, RefCell, UnsafeCell},
     collections::HashMap,
 };
 // use core::ptr::{Unique};
 
 #[derive(Debug)]
 struct A(i32);
+impl A {
+    fn get_box(&self) -> Box<Self> {
+        unsafe {
+            return Box::from_raw(self as *const A as *mut A);
+        }
+    }
+}
 use std::alloc::{dealloc, Layout};
 
 fn test() -> *mut A {
@@ -16,7 +23,11 @@ fn test() -> *mut A {
         println!("{:p}", &a);
         let ptr = &mut a;
         let ptr = std::alloc::alloc(std::alloc::Layout::new::<A>()) as *mut A;
-        ptr.write(a);
+        // *ptr = a;
+        let mut b = Box::new(a);
+
+        let ptr = b.as_mut();
+
         println!("{:p}", ptr);
         println!("{:p}", &ptr);
         return ptr;
@@ -25,6 +36,14 @@ fn test() -> *mut A {
 
 fn main() {
     unsafe {
+        let a = A(1);
+        let mut box_a = a.get_box();
+        let mut box_b = a.get_box();
+
+        dbg!(&box_a, &box_b);
+        box_a.0 = 9;
+        dbg!(&box_a, &box_b);
+
         let a = test();
         println!("{:p}", a);
         println!("{:p}", &a);
@@ -41,10 +60,10 @@ fn main() {
         let mut b = A(1);
         println!("{:p}", &mut b);
         let mut box_b = Box::new(b);
-        println!("{:p}", &box_b);
-        let mut ref_box_b = &mut box_b;
-        println!("{:p}", ref_box_b);
-        let x = ref_box_b.as_mut();
+        // println!("{:p}", &box_b);
+        // let mut ref_box_b = &mut box_b;
+        // println!("{:p}", ref_box_b);
+        let x = box_b.as_mut();
         println!("{:p}", x);
         x.0 = 123123;
         // let c = std::ptr::read(x);
@@ -64,23 +83,7 @@ fn main() {
         // ptr.write(std::ptr::read(x));
         let ptr = x as *mut A;
         println!("{:p},{},{:p}", ptr, ptr as u16, &ptr);
-        let mut box_b = unsafe { Box::from_raw(ptr) };
-        // std::ptr::drop_in_place(x);
-        // dealloc(x as *mut A as *mut u8, Layout::new::<A>());
-        println!("{:p}", box_b.as_mut());
-        // std::ptr::drop_in_place(x);
-        // drop(box_b);
-        // (*box_b).0 = 12;
-        // let mut ptr = box_b.
-        // b.0 = 9;
-        // box_b.0 = 9;
-        dbg!(&x);
 
-        dbg!(&box_b);
-        box_b.0 = 979;
-        dbg!(&x);
-
-        dbg!(&box_b);
         // drop(box_b);
     }
 }
