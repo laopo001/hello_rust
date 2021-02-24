@@ -1,3 +1,4 @@
+#![allow(unused)]
 trait Update {
     fn update(&mut self);
 }
@@ -14,7 +15,6 @@ impl Update for A {
 impl Drop for A {
     fn drop(&mut self) {
         dbg!("drop A");
-        self.i = -999;
         dbg!(self);
     }
 }
@@ -32,14 +32,14 @@ impl Update for B {
 impl Drop for B {
     fn drop(&mut self) {
         dbg!("drop B");
-        self.i = -222;
         dbg!(self);
     }
 }
 
-
-
 fn main() {
+    let b = B { i: 99999 };
+    let zz = Box::new(b);
+
     let mut a = A { i: 0 };
     let mut b = B { i: 0 };
     Update::update(&mut a);
@@ -69,17 +69,13 @@ fn main() {
             arr2.push(i);
         }
 
-        
-            // let z = Box::new(a);
-            // let z = Box::new(b);
-            drop(a);
-   
-       
-    
+        // let z = Box::new(a);
+        // let z = Box::new(b);
+        drop(a);
+
         for i in arr2 {
             i.as_mut().update();
         }
         // dbg!(a,b);
     }
-
 }

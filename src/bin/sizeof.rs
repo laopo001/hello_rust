@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 struct A {
     name: i32,
     age: i64,
