@@ -1,0 +1,24 @@
+[package]
+name = "hello_rust"
+version = "0.1.0"
+authors = ["laopo001 <353272497@qq.com>"]
+edition = "2018"
+
+[dependencies]
+# The latest version of the "futures" library, which has lots of utilities
+# for writing async code. Enable the "compat" feature to include the
+# functions for using futures 0.3 and async/await with the Hyper library,
+# which use futures 0.1.
+futures-preview = { version = "=0.3.0-alpha.17", features = ["compat"] }
+crossbeam-channel = "0.4.0"
+async-std = "1.4.0"
+# Hyper is an asynchronous HTTP library. We'll use it to power our HTTP
+# server and to make HTTP requests.
+hyper = "0.12.9"
+
+[features]
+default = []
+test = []
+
+[package.metadata.commands]
+wasm-build = "cargo build --target=wasm32-unknown-unknown --bin=wasm && node index.js"
